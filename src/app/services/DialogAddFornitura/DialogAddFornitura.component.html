@@ -1,0 +1,33 @@
+<mat-dialog-content>
+
+  <div class="container-header">
+    <span class="titleDialog">Nuova fornitura {{mydata.Nome}}</span>
+    <span class="subtitle">Inserisci i dati per una nuova fornitura</span>
+  </div>
+
+  <form [formGroup]="componenteForm" style="margin-top: 20px;">
+
+    <mat-form-field appearance="fill" class="inputField">
+      <mat-label>Quantità</mat-label>
+      <input matInput type="number" formControlName="Qty" placeholder="Quantità" required>
+    </mat-form-field>
+    <div *ngIf="submitted && f2['Qty'].errors" class="text-danger">
+      <div *ngIf="f2['Qty'].errors['required']">Quantità obbligatoria</div>
+    </div>
+
+    <mat-form-field appearance="fill" class="inputField">
+      <mat-label>Prezzo (A pezzo)</mat-label>
+      <input matInput type="number" formControlName="Prezzo" placeholder="0">
+      <span matTextPrefix>€&nbsp;</span>
+      <span matTextSuffix>.00</span>
+    </mat-form-field>
+    <div *ngIf="submitted && f2['Prezzo'].errors" class="text-danger">
+      <div *ngIf="f2['Prezzo'].errors['required']">Prezzo obbligatorio</div>
+    </div>
+
+  </form>
+  <div class="container-button-actions">
+    <button mat-raised-button [mat-dialog-close]="">Annulla</button>
+    <button mat-raised-button class="button-orange" (click)="updateComponente()">Aggiungi</button>
+  </div>
+</mat-dialog-content>

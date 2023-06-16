@@ -1,0 +1,9 @@
+:host ::ng-deep .snackClassError {
+  background: #bd362f !important;
+  color: white;
+}
+
+::ng-deep .snackClassSuccess {
+  background: #1dae3c !important;
+  color: white;
+}

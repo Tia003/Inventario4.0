@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "inventario-d15b3": {
+      "hosting": {
+        "inventario4.0": [
+          "inventario-d15b3"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "inventario-d15b3"
+  }
+}

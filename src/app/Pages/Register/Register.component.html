@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="logo">
+    <img src="../../../assets/LogoUlisse.png" alt="Logo">
+  </div>
+  <form [formGroup]="registerForm">
+    <mat-form-field appearance="fill" class="inputField">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="Email" placeholder="Email" required>
+    </mat-form-field>
+    <div *ngIf="submitted && f2['Email'].errors" class="text-danger">
+      <div *ngIf="f2['Email'].errors['required']">Email obbligatoria</div>
+      <div *ngIf="f2['Email'].errors['pattern']">Email errata</div>
+    </div>
+
+    <mat-form-field appearance="fill" class="inputField">
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="Password" [type]="hide ? 'password' : 'text'" placeholder="Password" required>
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+    <div *ngIf="submitted && f2['Password'].errors" class="text-danger">
+      <div *ngIf="f2['Password'].errors['required']">Password obbligatoria</div>
+      <div *ngIf="f2['Password'].errors['pattern']">Password troppo semplice</div>
+    </div>
+
+  </form>
+  <button class="login-btn" mat-button (click)="register()">Registrati</button>
+  <div class="register-link" class="blue">
+    Hai già un account? <a routerLink="/login">Accedi</a>
+  </div>
+</div>

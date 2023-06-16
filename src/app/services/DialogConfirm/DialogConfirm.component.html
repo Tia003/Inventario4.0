@@ -1,0 +1,16 @@
+<mat-dialog-content>
+
+  <div class="container-header">
+    <span class="titleDialog">{{mydata.title}}</span>
+    <span class="subtitle">{{mydata.subtitle}}</span>
+  </div>
+
+  <div class="content">
+    {{mydata.content}}
+  </div>
+
+  <div class="container-button-actions">
+    <button mat-raised-button [mat-dialog-close]="false">Annulla</button>
+    <button mat-raised-button class="button-orange" [mat-dialog-close]="true">Conferma</button>
+  </div>
+</mat-dialog-content>

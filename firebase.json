@@ -1,0 +1,9 @@
+{
+  "hosting": [
+    {
+      "target": "inventario4.0",
+      "source": ".",
+      "frameworksBackend": {}
+    }
+  ]
+}

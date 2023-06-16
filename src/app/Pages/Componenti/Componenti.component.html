@@ -1,0 +1,84 @@
+<div class="container-header">
+  <div class="header">
+    <div class="container-iconHeader">
+      <mat-icon class="orange iconHeader">assignment</mat-icon>
+    </div>
+    <div class="info-header">
+      <span class="title">Componenti</span>
+      <span class="subtitle">Elenco delle componenti presenti nell'inventario</span>
+    </div>
+  </div>
+  <div>
+    <button mat-raised-button style="background-color: #EA861B; color: white;" (click)="dialogAddComponente()">
+      <div class="container-icon-button">
+        <mat-icon style="color: white;">add</mat-icon>
+        <span>Nuova componente</span>
+      </div>
+    </button>
+  </div>
+</div>
+
+<mat-progress-bar [mode]="Indeterminate" style="color:#EA861B !important" *ngIf="value"></mat-progress-bar>
+
+<div style="display: flex; align-items: center; justify-content: center; flex-direction: column; margin-top: 25px;" *ngIf="!showData && !value">
+  <div class="noData" >
+    <img src="../../../assets/NoData.png" alt="Immagine no data" class="img-noData">
+  </div>
+  <p class="subtitle" style="font-size: medium; font-family: 'Oswald', sans-serif">Nessuna componente trovata</p>
+</div>
+
+
+<div class="card-container" *ngIf="!value">
+  <mat-card class="card" *ngFor="let componente of componenti">
+    <div class="img-container">
+      <img mat-card-image [src]="componente.image" alt="Immagine della componente" onError="this.src='assets/404.png'" class="img-componente">
+    </div>
+    <mat-divider style="width: 100%; margin-top: 10px;"></mat-divider>
+    <div class="container-card-content">
+      <mat-card-content style="padding: 16px !important;">
+        <div class="container-title-prezzo">
+          <div class="container-nome-codice">
+            <span class="nome">
+              {{componente.Nome}}
+            </span>
+            <span class="codice">{{componente.Codice}}</span>
+          </div>
+          <div class="container-prezzo-Qty">
+            <span class="prezzo">
+              {{componente.Prezzo}}€
+            </span>
+            <span>
+              {{componente.Qty}} Pz
+            </span>
+          </div>
+
+        </div>
+        <p>
+          {{componente.Descrizione}}
+        </p>
+      </mat-card-content>
+      <mat-card-actions class="container-actions">
+        <div>
+          <button mat-icon-button (click)="deleteComponente(componente)">
+            <mat-icon class="orange">delete</mat-icon>
+          </button>
+          <button mat-icon-button (click)="editComponente(componente)">
+            <mat-icon class="orange">edit</mat-icon>
+          </button>
+        </div>
+        <div class="container-Qty-buttons">
+          <!-- <button mat-icon-button (click)="updateComponente(componente, 'diff')">
+            <mat-icon class="orange">remove</mat-icon>
+          </button>
+          <span>{{ componente.Qty }}</span>
+          <button mat-icon-button (click)="updateComponente(componente, 'sum')">
+            <mat-icon class="orange">add</mat-icon>
+          </button> -->
+          <button mat-button (click)="updateComponente(componente)" style="background-color: #EA861B; color: white;">Nuova fornitura</button>
+        </div>
+
+      </mat-card-actions>
+    </div>
+  </mat-card>
+
+</div>

@@ -1,0 +1,33 @@
+.inputField{
+  width: 100%;
+}
+
+.titleDialog{
+  font-size: 20px;
+  font-weight: bold;
+  color: #EA861B;
+}
+
+.container-header{
+  display: flex;
+  flex-direction: column;
+}
+
+.container-button-actions{
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.button-orange{
+  background-color: #EA861B;
+  color: white;
+}
+
+.text-danger{
+  color: red;
+  font-size: medium;
+  font-weight: 500;
+  margin-top: -18px;
+  margin-bottom: 15px;
+}

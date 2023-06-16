@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from './shared/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'inventario4.0';
+
+  constructor(public authService: AuthService) { }
+
+  title = 'SpotIt';
+  email: any
+
+  ngOnInit() {
+  }
+
+  ngAfterContentInit(): void {
+    this.email = localStorage.getItem('User');
+  }
+
 }
