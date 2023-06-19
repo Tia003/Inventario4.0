@@ -1,13 +1,22 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, combineChange } from '@angular/fire/compat/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Componenti } from '../Pages/Model/componenti';
+import { AngularFireStorage } from '@angular/fire/compat/storage'
+import { Image } from '../Pages/Model/image';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  constructor(private AFS: AngularFirestore) { }
+  constructor(
+    private AFS: AngularFirestore,
+    private AS: AngularFireStorage
+  ) { }
+
+
+  //COMPONENTI ACTIONS
 
   addComponente(componente: Componenti){
     componente.Id = this.AFS.createId()
@@ -40,6 +49,29 @@ export class DataService {
   }
 
 
+  //IMAGE ACTIONS
+
+  saveMetaDataOfFile(fileObj: Image){
+    const fileMeta = {
+      id: '',
+      name: fileObj.name,
+      url: fileObj.url,
+      size: fileObj.size
+    }
+
+    fileMeta.id = this.AFS.createId();
+
+    this.AFS.collection('/Upload').add(fileMeta)
+  }
+
+  getAllFiles(){
+    this.AFS.collection('/Uploads').snapshotChanges();
+  }
+
+  deleteFile(fileMeta: Image){
+    this.AFS.collection('/Uploads').doc(fileMeta.id).delete();
+    this.AS.ref('/Uploads/' + fileMeta.name).delete();
+  }
 
 
 }

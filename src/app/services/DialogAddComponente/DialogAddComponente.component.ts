@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, Optional, ElementRef  } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-DialogAddComponente',
@@ -16,6 +16,10 @@ export class DialogAddComponenteComponent implements OnInit {
   ) { }
 
   submitted: boolean = false
+  selectedImage: any
+  imagePreview: any
+  imageError: any
+  allowedTypes = ['image/png', 'image/jpeg'];
 
   componenteForm = this.formBuilder.group(
     {
@@ -23,7 +27,7 @@ export class DialogAddComponenteComponent implements OnInit {
       Descrizione: ['', Validators.required],
       Codice: ['', Validators.required],
       Qty: ['', Validators.required],
-      Prezzo: ['', Validators.required],
+      Prezzo: ['', Validators.required]
     });
 
   get f2() {
@@ -36,8 +40,20 @@ export class DialogAddComponenteComponent implements OnInit {
   addComponente(){
     this.submitted = true
 
-    if (this.componenteForm.valid && this.componenteForm.controls) {
-      this.dialogRef.close({ event: 'close', data: this.componenteForm });
+    if (this.componenteForm.valid && this.componenteForm.controls && this.selectedImage != null && !this.imageError) {
+      this.dialogRef.close({ event: 'close', data: [this.componenteForm, this.selectedImage] });
+    }
+  }
+
+  takeImage(event: any) {
+
+    this.selectedImage = event.target.files[0];
+
+    if (this.allowedTypes.includes(this.selectedImage.type)) {
+      this.imagePreview = URL.createObjectURL(this.selectedImage);
+      this.imageError = false;
+    } else {
+      this.imageError = true;
     }
   }
 

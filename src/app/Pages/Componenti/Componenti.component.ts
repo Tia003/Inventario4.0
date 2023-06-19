@@ -8,6 +8,8 @@ import { DialogAddComponenteComponent } from 'src/app/services/DialogAddComponen
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { DialogAddFornituraComponent } from 'src/app/services/DialogAddFornitura/DialogAddFornitura.component';
 import { DialogConfirmComponent } from 'src/app/services/DialogConfirm/DialogConfirm.component';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-Componenti',
@@ -20,7 +22,8 @@ export class ComponentiComponent implements OnInit {
     private auth: AuthService,
     private data: DataService,
     private messages: MessagesService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private fireStorage: AngularFireStorage
   ) { }
 
   showData: any
@@ -36,6 +39,9 @@ export class ComponentiComponent implements OnInit {
   }
   Indeterminate: ProgressSpinnerMode = "indeterminate"
   value: any
+
+  selectedFile: any
+  currentFileUpload: any
 
   ngOnInit() {
     this.getAllComponenti()
@@ -113,15 +119,45 @@ export class ComponentiComponent implements OnInit {
     });
 
     dialogAdd.afterClosed().subscribe((result: any) => {
-      this.componentiObj.Nome = result.data.value.Nome
+      this.componentiObj.Nome = result.data[0].value.Nome
       this.componentiObj.image = ''
-      this.componentiObj.Descrizione = result.data.value.Descrizione
-      this.componentiObj.Prezzo = result.data.value.Prezzo
-      this.componentiObj.Qty = result.data.value.Qty
-      this.componentiObj.Codice = result.data.value.Codice
+      this.componentiObj.Descrizione = result.data[0].value.Descrizione
+      this.componentiObj.Prezzo = result.data[0].value.Prezzo
+      this.componentiObj.Qty = result.data[0].value.Qty
+      this.componentiObj.Codice = result.data[0].value.Codice
       this.data.addComponente(this.componentiObj)
       this.getAllComponenti()
+
+      console.log( 'result.data[1]: ', result.data[1])
+      this.uploadFile(result.data[1])
     });
+  }
+
+  selectFile(event: any){
+    this.selectedFile = event.target.files
+  }
+
+  uploadFile(image: any){
+    this.currentFileUpload = new Image(image);
+
+    const path = 'Uploads/' + this.currentFileUpload.file.name;
+    const storageRef = this.fireStorage.ref(path);
+    const uploadTask = storageRef.put(image);
+
+    uploadTask.snapshotChanges().pipe( finalize( () => {
+      storageRef.getDownloadURL().subscribe( (downloadLink: any) => {
+        this.currentFileUpload.url = downloadLink;
+        this.currentFileUpload.size = this.currentFileUpload.file.size;
+        this.currentFileUpload.name = this.currentFileUpload.file.name;
+
+        this.data.saveMetaDataOfFile(this.currentFileUpload)
+
+      })
+    })).subscribe( (res: any) => {
+      console.log('Caricamento immagine ok')
+    }, (error: any) => {
+      this.messages.openSnackBar("Errore durante il caricamento dell'immagine", true);
+    })
   }
 
 }
