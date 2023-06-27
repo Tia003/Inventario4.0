@@ -40,7 +40,7 @@ export class DialogAddComponenteComponent implements OnInit {
   addComponente(){
     this.submitted = true
 
-    if (this.componenteForm.valid && this.componenteForm.controls && this.selectedImage != null && !this.imageError) {
+    if (this.componenteForm.valid && this.componenteForm.controls && !this.imageError) {
       this.dialogRef.close({ event: 'close', data: [this.componenteForm, this.selectedImage] });
     }
   }

@@ -17,6 +17,18 @@ export class AuthService {
 
   showMenu: boolean = true
   infoUser: any
+  username: any
+  user: any
+
+  //USER
+
+  getUserInfo() {
+    this.user = this.fireAuth.user;
+    console.log(this.user)
+  }
+
+
+
 
   //LOGIN
 
@@ -26,7 +38,7 @@ export class AuthService {
       if (res.user?.emailVerified == true) {
         this.infoUser = res
         localStorage.setItem('token', 'true')
-        localStorage.setItem('User', email)
+        this.username = email
         this.showMenu = true
         this.router.navigate(['componenti'])
         this.messages.openSnackBar("Accesso effettuato", false);
@@ -46,7 +58,7 @@ export class AuthService {
   register(email: string, password: string) {
     this.fireAuth.createUserWithEmailAndPassword(email, password).then( (res: any) => {
       this.showMenu = true;
-      localStorage.setItem('User', email);
+      this.username = email
       this.router.navigate(['/login']);
       this.sendEmailForVerification(res.user);
     }).catch((error: any) => {
@@ -68,7 +80,7 @@ export class AuthService {
     this.fireAuth.signOut().then( () => {
       localStorage.removeItem('token')
       localStorage.removeItem('logged')
-      localStorage.removeItem('User')
+      this.username = ''
       this.showMenu = false
       this.router.navigate(['/login'])
     }, (error: any) => {
@@ -107,7 +119,7 @@ export class AuthService {
     return this.fireAuth.signInWithPopup(new GoogleAuthProvider).then( (res: any) => {
       this.infoUser = res
       this.showMenu = true
-      localStorage.setItem('User', res.user.multiFactor.user.email)
+      this.username = res.user.multiFactor.user.email
       this.router.navigate(['componenti'])
       this.messages.openSnackBar("Accesso effettuato", false);
       localStorage.setItem('token', JSON.stringify(res.user?.uid))

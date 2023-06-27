@@ -10,14 +10,16 @@ export class AppComponent {
 
   constructor(public authService: AuthService) { }
 
-  title = 'SpotIt';
-  email: any
+  infoUser: any
 
   ngOnInit() {
+    this.infoUser = this.authService.getUserInfo()
+    console.log(this.infoUser)
   }
 
+
+
   ngAfterContentInit(): void {
-    this.email = localStorage.getItem('User');
   }
 
 }

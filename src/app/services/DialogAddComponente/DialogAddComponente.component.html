@@ -8,7 +8,7 @@
   <div class="container-fileUpload">
 
     <div class="container-image">
-      <img mat-card-image [src]="imagePreview" alt="Immagine della componente" onError="this.src='assets/404.png'" class="img-componente">
+      <img mat-card-image [src]="imagePreview" alt="Immagine della componente" onError="this.src='assets/no-image.jpg'" class="img-componente">
     </div>
 
     <label for="upload" class="file-upload-label">
@@ -16,9 +16,11 @@
       <input type="file" id="upload" class="file-upload" (change)="takeImage($event)">
     </label>
 
-    <span *ngIf="imageError" class="text-danger-image">
-      Il formato dell'immagine non è supportato
-    </span>
+    <div *ngIf="imageError" class="container-text-danger">
+      <span class="text-danger">
+        Il formato dell'immagine non è supportato
+      </span>
+    </div>
 
   </div>
 
@@ -30,32 +32,36 @@
       <mat-label>Nome</mat-label>
       <input matInput formControlName="Nome" placeholder="Nome" required>
     </mat-form-field>
-    <div *ngIf="submitted && f2['Nome'].errors" class="text-danger">
-      <div *ngIf="f2['Nome'].errors['required']">Nome obbligatorio</div>
+    <div *ngIf="submitted && f2['Nome'].errors" class="container-text-danger">
+      <mat-icon style="color: white;">new_releases</mat-icon>
+      <div *ngIf="f2['Nome'].errors['required']" class="text-danger">Nome obbligatorio</div>
     </div>
 
     <mat-form-field appearance="fill" class="inputField">
       <mat-label>Descrizione</mat-label>
       <textarea matInput formControlName="Descrizione" placeholder="Descrizione" required></textarea>
     </mat-form-field>
-    <div *ngIf="submitted && f2['Descrizione'].errors" class="text-danger">
-      <div *ngIf="f2['Descrizione'].errors['required']">Descrizione obbligatoria</div>
+    <div *ngIf="submitted && f2['Descrizione'].errors" class="container-text-danger">
+      <mat-icon style="color: white;">new_releases</mat-icon>
+      <div *ngIf="f2['Descrizione'].errors['required']" class="text-danger">Descrizione obbligatoria</div>
     </div>
 
     <mat-form-field appearance="fill" class="inputField">
       <mat-label>Codice</mat-label>
       <input matInput formControlName="Codice" placeholder="Codice" required>
     </mat-form-field>
-    <div *ngIf="submitted && f2['Codice'].errors" class="text-danger">
-      <div *ngIf="f2['Codice'].errors['required']">Codice obbligatorio</div>
+    <div *ngIf="submitted && f2['Codice'].errors" class="container-text-danger">
+      <mat-icon style="color: white;">new_releases</mat-icon>
+      <div *ngIf="f2['Codice'].errors['required']" class="text-danger">Codice obbligatorio</div>
     </div>
 
     <mat-form-field appearance="fill" class="inputField">
       <mat-label>Quantità</mat-label>
       <input matInput type="number" formControlName="Qty" placeholder="Quantità" required>
     </mat-form-field>
-    <div *ngIf="submitted && f2['Qty'].errors" class="text-danger">
-      <div *ngIf="f2['Qty'].errors['required']">Quantità obbligatoria</div>
+    <div *ngIf="submitted && f2['Qty'].errors" class="container-text-danger">
+      <mat-icon style="color: white;">new_releases</mat-icon>
+      <div *ngIf="f2['Qty'].errors['required']" class="text-danger">Quantità obbligatoria</div>
     </div>
 
     <mat-form-field appearance="fill" class="inputField">
@@ -64,8 +70,9 @@
       <span matTextPrefix>€&nbsp;</span>
       <span matTextSuffix>.00</span>
     </mat-form-field>
-    <div *ngIf="submitted && f2['Prezzo'].errors" class="text-danger">
-      <div *ngIf="f2['Prezzo'].errors['required']">Prezzo obbligatorio</div>
+    <div *ngIf="submitted && f2['Prezzo'].errors" class="container-text-danger">
+      <mat-icon style="color: white;">new_releases</mat-icon>
+      <div *ngIf="f2['Prezzo'].errors['required']" class="text-danger">Prezzo obbligatorio</div>
     </div>
 
   </form>

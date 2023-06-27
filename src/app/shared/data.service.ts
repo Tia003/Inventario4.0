@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Componenti } from '../Pages/Model/componenti';
+import { Componenti } from '../Model/componenti';
 import { AngularFireStorage } from '@angular/fire/compat/storage'
-import { Image } from '../Pages/Model/image';
+import { Image } from '../Model/image';
 
 
 @Injectable({
@@ -14,7 +14,6 @@ export class DataService {
     private AFS: AngularFirestore,
     private AS: AngularFireStorage
   ) { }
-
 
   //COMPONENTI ACTIONS
 

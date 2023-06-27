@@ -25,11 +25,20 @@
 }
 
 .text-danger{
-  color: red;
+  color: white;
   font-size: medium;
-  font-weight: 500;
-  margin-top: -18px;
-  margin-bottom: 15px;
+  font-weight: 400;
+}
+
+.container-text-danger{
+  background-color: rgb(255 66 66 / 91%);
+  margin-top: -15px;
+  margin-bottom: 20px;
+  display: flex;
+  gap: 6px;
+  padding: 4px;
+  border-radius: 7px;
+  padding-left: 7px;
 }
 
 .container-fileUpload {

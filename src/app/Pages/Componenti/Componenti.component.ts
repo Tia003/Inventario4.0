@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Componenti } from '../Model/componenti';
+import { Componenti } from '../../Model/componenti';
 import { AuthService } from 'src/app/shared/auth.service';
 import { DataService } from 'src/app/shared/data.service';
 import { MessagesService } from 'src/app/services/Messages/messages.service';
@@ -27,6 +27,7 @@ export class ComponentiComponent implements OnInit {
   ) { }
 
   showData: any
+  modifyByTemp: any
   componenti: Componenti[] = []
   componentiObj: Componenti = {
     Id: '',
@@ -35,7 +36,11 @@ export class ComponentiComponent implements OnInit {
     Descrizione: '',
     Codice: '',
     Qty: 0,
-    Prezzo: 0
+    Prezzo: 0,
+    CreateBy: '',
+    ModifyBy: '',
+    DataCreazione: new Date(),
+    DataModifica: new Date()
   }
   Indeterminate: ProgressSpinnerMode = "indeterminate"
   value: any
@@ -83,6 +88,13 @@ export class ComponentiComponent implements OnInit {
       this.componentiObj.image = ''
       this.componentiObj.Prezzo = result.data.value.Prezzo
       this.componentiObj.Qty = result.data.value.Qty + componente.Qty
+      this.componentiObj.CreateBy = result.data.value.CreateBy
+      this.componentiObj.DataCreazione = result.data.value.DataCreazione,
+      this.modifyByTemp = localStorage.getItem('User');
+      console.log('this.modifyByTemp: ', this.modifyByTemp)
+      this.componentiObj.ModifyBy = this.modifyByTemp !== null ? this.modifyByTemp : '';
+      this.componentiObj.DataModifica = new Date()
+
       this.data.updateComponente(this.componentiObj)
     })
 
@@ -115,8 +127,10 @@ export class ComponentiComponent implements OnInit {
 
   dialogAddComponente(){
     const dialogAdd = this.dialog.open(DialogAddComponenteComponent, {
-      width: '450px'
+      width: '450px',
     });
+
+    this.modifyByTemp = localStorage.getItem('User');
 
     dialogAdd.afterClosed().subscribe((result: any) => {
       this.componentiObj.Nome = result.data[0].value.Nome
@@ -125,6 +139,13 @@ export class ComponentiComponent implements OnInit {
       this.componentiObj.Prezzo = result.data[0].value.Prezzo
       this.componentiObj.Qty = result.data[0].value.Qty
       this.componentiObj.Codice = result.data[0].value.Codice
+
+      this.componentiObj.CreateBy = this.modifyByTemp !== null ? this.modifyByTemp : '';
+      this.componentiObj.DataCreazione = new Date(),
+
+      this.componentiObj.ModifyBy = this.modifyByTemp !== null ? this.modifyByTemp : '';
+      this.componentiObj.DataModifica = new Date()
+
       this.data.addComponente(this.componentiObj)
       this.getAllComponenti()
 

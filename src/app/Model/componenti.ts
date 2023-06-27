@@ -5,5 +5,9 @@ export interface Componenti {
   Descrizione: string,
   Codice: string,
   Qty: number,
-  Prezzo: number
+  Prezzo: number,
+  CreateBy: string,
+  ModifyBy: string,
+  DataCreazione: Date,
+  DataModifica: Date
 }
