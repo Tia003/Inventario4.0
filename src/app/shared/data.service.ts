@@ -60,7 +60,7 @@ export class DataService {
 
     fileMeta.id = this.AFS.createId();
 
-    this.AFS.collection('/Upload').add(fileMeta)
+    this.AFS.collection('/Uploads').add(fileMeta)
   }
 
   getAllFiles(){

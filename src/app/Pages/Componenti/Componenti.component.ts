@@ -146,11 +146,12 @@ export class ComponentiComponent implements OnInit {
       this.componentiObj.ModifyBy = this.modifyByTemp !== null ? this.modifyByTemp : '';
       this.componentiObj.DataModifica = new Date()
 
+      console.log( 'result.data[1]: ', result.data[1])
+      this.uploadFile(result.data[1])
+
       this.data.addComponente(this.componentiObj)
       this.getAllComponenti()
 
-      console.log( 'result.data[1]: ', result.data[1])
-      this.uploadFile(result.data[1])
     });
   }
 
@@ -159,17 +160,16 @@ export class ComponentiComponent implements OnInit {
   }
 
   uploadFile(image: any){
+
     this.currentFileUpload = new Image(image);
 
-    const path = 'Uploads/' + this.currentFileUpload.file.name;
+    const path = 'Uploads/' + this.currentFileUpload.name;
     const storageRef = this.fireStorage.ref(path);
     const uploadTask = storageRef.put(image);
 
     uploadTask.snapshotChanges().pipe( finalize( () => {
       storageRef.getDownloadURL().subscribe( (downloadLink: any) => {
         this.currentFileUpload.url = downloadLink;
-        this.currentFileUpload.size = this.currentFileUpload.file.size;
-        this.currentFileUpload.name = this.currentFileUpload.file.name;
 
         this.data.saveMetaDataOfFile(this.currentFileUpload)
 

@@ -27,9 +27,6 @@ export class AuthService {
     console.log(this.user)
   }
 
-
-
-
   //LOGIN
 
   login(email: string, password: string){

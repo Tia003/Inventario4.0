@@ -1,0 +1,12 @@
+<div class="otp-container">
+  <h1>OTP Verification</h1>
+  <div class="otp-inputs">
+    <input type="text" maxlength="1" [(ngModel)]="otp[0]" (input)="onOtpChange(0)" (keydown)="onKeyDown($event, 0)">
+    <input type="text" maxlength="1" [(ngModel)]="otp[1]" (input)="onOtpChange(1)" (keydown)="onKeyDown($event, 1)">
+    <input type="text" maxlength="1" [(ngModel)]="otp[2]" (input)="onOtpChange(2)" (keydown)="onKeyDown($event, 2)">
+    <input type="text" maxlength="1" [(ngModel)]="otp[3]" (input)="onOtpChange(3)" (keydown)="onKeyDown($event, 3)">
+    <input type="text" maxlength="1" [(ngModel)]="otp[4]" (input)="onOtpChange(4)" (keydown)="onKeyDown($event, 4)">
+    <input type="text" maxlength="1" [(ngModel)]="otp[5]" (input)="onOtpChange(5)" (keydown)="onKeyDown($event, 5)">
+  </div>
+  <button (click)="verifyOtp()" [disabled]="otp.includes(null)">Verifica</button>
+</div>

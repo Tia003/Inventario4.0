@@ -19,7 +19,7 @@ import { ForgotPasswordComponent } from './Pages/forgotPassword/forgotPassword.c
 import { DialogAddComponenteComponent } from './services/DialogAddComponente/DialogAddComponente.component';
 import { DialogAddFornituraComponent } from './services/DialogAddFornitura/DialogAddFornitura.component';
 import { DialogConfirmComponent } from './services/DialogConfirm/DialogConfirm.component';
-
+import { OTPVerificationComponent } from './Pages/OTP-Verification/OTP-Verification.component';
 
 //ALTRO
 
@@ -47,7 +47,8 @@ import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
     ForgotPasswordComponent,
     DialogAddComponenteComponent,
     DialogAddFornituraComponent,
-    DialogConfirmComponent
+    DialogConfirmComponent,
+    OTPVerificationComponent
   ],
   imports: [
     BrowserModule,
